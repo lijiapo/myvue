@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="app">
+        <h2>今天天气很{{info}},{{x}}</h2>
+        <button @click="changeWeather">点击改变天气</button>
+        <!--可以写一些简单的语句 不推荐这种写法 最好写到vue实例 -->
+        <!-- <button @click="isHot=!isHot">点击改变天气</button> -->
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    Vue.config.productionTip = false;
+    new Vue({
+        el: '.app',
+        data: {
+            isHot: true,
+            x: 1
+        },
+        // 改变天气的方法写到vue方法里面
+        methods: {
+            changeWeather() {
+                this.isHot = !this.isHot
+                this.x++
+            }
+        },
+        // 计算属性写到computed中
+        computed: {
+            info() {
+                return this.isHot ? '热' : "冷"
+            }
+        }
+    })
+</script>
+
+</html>
