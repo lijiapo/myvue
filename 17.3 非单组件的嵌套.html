@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <app></app>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip = false
+    Vue.config.devtools = false
+
+    // 定义学生组件
+    const student = {
+            name: 'student',
+            template: `
+          <div>
+            <h3>学生姓名：{{name}}</h3>
+            <h3>学生年龄：{{age}}</h3>
+        </div>
+         `,
+            data() {
+                return {
+                    name: '李欢',
+                    age: 10
+                }
+            },
+        }
+        // 定义学校组件
+    const school = {
+            name: 'school',
+            template: `
+         <div>
+            <h2>学校名称：{{name}}</h2>
+            <h2>学校地址：{{address}}</h2>
+            <student></student>
+        </div>
+        `,
+            data() {
+                return {
+                    name: '北大青鸟',
+                    address: '安德门'
+                }
+            },
+            // 把学生组件嵌套到学校组件里面
+            components: {
+                student
+            }
+        }
+        //   定义欢迎组件
+    const hello = {
+            template: `
+          <h1>{{msg}}</h1>
+        `,
+            data() {
+                return {
+                    msg: '欢迎来到英雄联盟!'
+                }
+            },
+        }
+        //定义app组件
+    const app = Vue.extend({
+        template: `
+				<div>	
+					<hello></hello>
+					<school></school>
+				</div>
+			`,
+        components: {
+            school,
+            hello
+        }
+    })
+
+    //创建vm
+    new Vue({
+        template: '<app></app>',
+        el: '#root',
+        //注册组件（局部）
+        components: {
+            app
+        }
+    })
+</script>
+
+</html>
